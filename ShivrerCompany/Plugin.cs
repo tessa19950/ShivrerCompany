@@ -3,6 +3,7 @@ using BepInEx.Configuration;
 using GameNetcodeStuff;
 using HarmonyLib;
 using ShivrerCompany.patches;
+using ShivrerCompany.util;
 using System.IO;
 using UnityEngine;
 
@@ -13,7 +14,6 @@ namespace ShivrerCompany
     {
         public static Plugin instance;
         private readonly Harmony harmony = new Harmony(PluginInfo.PLUGIN_GUID);
-        private static readonly string PLUGIN_ASSETS_FOLDER = "";
 
         private void Awake()
         {
@@ -24,24 +24,18 @@ namespace ShivrerCompany
 
             // Plugin startup logic
             Log("Shivrer is munching on the Lethal Company code...");
+
+            TextureUtil.LoadTexturePaths();
+
             harmony.PatchAll(typeof(Plugin));
-            harmony.PatchAll(typeof(FlashlightItemPatch));
-            LoadTextures();
+            harmony.PatchAll(typeof(StartOfRoundPatch));
+            harmony.PatchAll(typeof(RoundManagerPatch));
+            harmony.PatchAll(typeof(TerminalPatch));
+
+            harmony.PatchAll(typeof(WalkieTalkiePatch));
+            harmony.PatchAll(typeof(GrabbableObjectPatch));
 
             Log($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
-        }
-
-        public static string FLASHLIGHT_TEX;
-
-        private void LoadTextures()
-        {
-            string[] files = Directory.GetFiles(Path.Combine(Paths.PluginPath, "ShivrerAssets"));
-            foreach (string file in files)
-            {
-                Log("Found File [" + file + "]");
-                if (file.Contains("FlashlightTexture"))
-                    FLASHLIGHT_TEX = file;
-            }
         }
 
         public void Log(string message)
