@@ -36,13 +36,13 @@ namespace ShivrerCompany.patches
                 return;
 
             string textureName = r.sharedMaterial.mainTexture != null ? r.sharedMaterial.mainTexture.name : "NULL";
-            Plugin.instance.Log("Seeking Replacement for [" + textureName + "]...");
+            Plugin.instance.Log("Seeking Replacement for Item Texture [" + textureName + "]...");
             Texture2D texture = GetReplacementTexture(textureName);
             if (texture != null)
             {
                 r.sharedMaterial.color = Color.white;
                 r.sharedMaterial.mainTexture = texture;
-                Plugin.instance.Log("Replaced [" + item.itemProperties.name + "] with [" + texture.name + "]");
+                Plugin.instance.Log("Replaced Item Texture [" + item.itemProperties.name + "] with [" + texture.name + "]");
             }
         }
 

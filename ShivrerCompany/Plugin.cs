@@ -33,6 +33,7 @@ namespace ShivrerCompany
 
             harmony.PatchAll(typeof(WalkieTalkiePatch));
             harmony.PatchAll(typeof(GrabbableObjectPatch));
+            harmony.PatchAll(typeof(EnemyAIPatch));
 
             Log($"Plugin {PluginInfo.PLUGIN_GUID} is loaded! <3");
         }

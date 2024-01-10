@@ -13,12 +13,20 @@ namespace ShivrerCompany.patches
     [HarmonyPatch(typeof(Terminal))]
     internal class TerminalPatch
     {
+        static System.Random rand = new System.Random();
         static Dictionary<TerminalNode, UnityAction<Terminal>> CUSTOM_EVENT_MAP = new Dictionary<TerminalNode, UnityAction<Terminal>>();
 
         static string GIMME_GIMME_MESSAGE =
             "Fine, fine. I know all you want is to play with your little toys.\n" +
             "I need you to hold on tight, while Daddy orders you some things online. <3\n" +
             "Go wait outside for the mailman to arrive, okay?\n" +
+            "   - xoxo The Company\n\n\n";
+        static string SPIDER_PLS_MESSAGE =
+            "Are you sure? Okidoki. I'll add a Spider for you bbgirl <3\n" +
+            "   - xoxo The Company\n\n\n";
+        static string DEEZ_NUTS_MESSAGE =
+            "You're gonna like this one 0.0\n" +
+            "NUTCRACKERS GALORE!!!\n" +
             "   - xoxo The Company\n\n\n";
 
         static int MONEY_REQUESTED = 0;
@@ -70,6 +78,26 @@ namespace ShivrerCompany.patches
                         Plugin.instance.Log("Added money on the Client");
                     }
                     MONEY_REQUESTED++;
+                }
+            );
+            AddExactSentence(ref terminalNodes, "spiderpls",
+                SPIDER_PLS_MESSAGE,
+                (terminal) =>
+                {
+                    Plugin.instance.Log("spider command");
+                    RoundManager manager = RoundManager.Instance;
+                    EnemyVent vent = manager.allEnemyVents[rand.Next(0, manager.allEnemyVents.Length)];
+                    EnemyUtil.SpawnEnemyFromVent(vent, "spider");
+                }
+            );
+            AddExactSentence(ref terminalNodes, "deeznuts",
+                DEEZ_NUTS_MESSAGE,
+                (terminal) =>
+                {
+                    Plugin.instance.Log("nutcracker command");
+                    RoundManager manager = RoundManager.Instance;
+                    foreach (var vent in manager.allEnemyVents)
+                        EnemyUtil.SpawnEnemyFromVent(vent, "nutcracker");
                 }
             );
             AddExactSentence(ref terminalNodes, "gimmegimme",

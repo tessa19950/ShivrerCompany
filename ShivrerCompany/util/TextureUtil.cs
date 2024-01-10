@@ -10,6 +10,9 @@ namespace ShivrerCompany.util
     internal class TextureUtil
     {
         public static string
+            SANDSPIDER_TEX,
+            NUTCRACKER_TEX,
+
             WALKIETALKIE_TEX,
             WALKIETALKIE_SCREEN_TEX,
             WALKIETALKIE_ICON,
@@ -23,6 +26,7 @@ namespace ShivrerCompany.util
             SODACAN_TEX,
             STOPSIGN_TEX,
             YIELDSIGN_TEX,
+
             POSTERS_TEX;
 
         public static void LoadTexturePaths()
@@ -33,22 +37,25 @@ namespace ShivrerCompany.util
             AddFilePaths(files, Path.Combine(Paths.PluginPath, "SuperSuccubus-ShivrerCompany", "ShivrerAssets"));
 
             //for (int i = 0; i < files.Count; i++)
-                //Plugin.instance.Log("File [" + (i + 1) + "/" + files.Count + "] [" + files[i] + "]");
+            //Plugin.instance.Log("File [" + (i + 1) + "/" + files.Count + "] [" + files[i] + "]");
 
-            WALKIETALKIE_TEX = FindTextureInFiles(files, "WalkieTalkieTex.png");
-            WALKIETALKIE_SCREEN_TEX = FindTextureInFiles(files, "WalkieTalkieScreenEmission.png");
-            WALKIETALKIE_ICON = FindTextureInFiles(files, "WalkieTalkieIcon.png");
-            FLASHLIGHT_TEX = FindTextureInFiles(files, "FlashlightTexture.png");
-            FLASHLIGHT_ICON = FindTextureInFiles(files, "FlashlightIcon.png");
-            TINY_FLASHLIGHT_TEX = FindTextureInFiles(files, "TinyFlashlightTex.png");
-            TINY_FLASHLIGHT_ICON = FindTextureInFiles(files, "TinyFlashlightIcon.png");
-            GIFTBOX_TEX = FindTextureInFiles(files, "GiftBoxTex.png");
-            GIFTBOX_ICON = FindTextureInFiles(files, "GiftBoxIcon.png");
-            AIRHORN_TEX = FindTextureInFiles(files, "AirhornTex.png");
-            SODACAN_TEX = FindTextureInFiles(files, "SodaCanTex1.png");
-            STOPSIGN_TEX = FindTextureInFiles(files, "StopSignTex.png");
-            YIELDSIGN_TEX = FindTextureInFiles(files, "YieldSignTex.png");
-            POSTERS_TEX = FindTextureInFiles(files, "posters.png");
+            SANDSPIDER_TEX = FindTextureInFiles(files, "SandSpiderTex");
+            NUTCRACKER_TEX = FindTextureInFiles(files, "NutcrackerTex");
+
+            WALKIETALKIE_TEX = FindTextureInFiles(files, "WalkieTalkieTex");
+            WALKIETALKIE_SCREEN_TEX = FindTextureInFiles(files, "WalkieTalkieScreenEmission");
+            WALKIETALKIE_ICON = FindTextureInFiles(files, "WalkieTalkieIcon");
+            FLASHLIGHT_TEX = FindTextureInFiles(files, "FlashlightTexture");
+            FLASHLIGHT_ICON = FindTextureInFiles(files, "FlashlightIcon");
+            TINY_FLASHLIGHT_TEX = FindTextureInFiles(files, "TinyFlashlightTex");
+            TINY_FLASHLIGHT_ICON = FindTextureInFiles(files, "TinyFlashlightIcon");
+            GIFTBOX_TEX = FindTextureInFiles(files, "GiftBoxTex");
+            GIFTBOX_ICON = FindTextureInFiles(files, "GiftBoxIcon");
+            AIRHORN_TEX = FindTextureInFiles(files, "AirhornTex");
+            SODACAN_TEX = FindTextureInFiles(files, "SodaCanTex1");
+            STOPSIGN_TEX = FindTextureInFiles(files, "StopSignTex");
+            YIELDSIGN_TEX = FindTextureInFiles(files, "YieldSignTex");
+            POSTERS_TEX = FindTextureInFiles(files, "posters");
 
             Plugin.instance.Log("All required textures have been loaded! <3");
         }
@@ -69,7 +76,7 @@ namespace ShivrerCompany.util
             {
                 string[] splitPath = filePath.Split('\\');
                 string fileName = splitPath[splitPath.Length - 1];
-                if (fileName.Equals(query, StringComparison.OrdinalIgnoreCase))
+                if (fileName.Equals(query + ".png", StringComparison.OrdinalIgnoreCase))
                 {
                     Plugin.instance.Log("Found " + query + " at [" + filePath + "]");
                     return filePath;
