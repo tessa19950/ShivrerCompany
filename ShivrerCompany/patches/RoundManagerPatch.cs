@@ -15,11 +15,11 @@ namespace ShivrerCompany.patches
         [HarmonyPostfix]
         private static void GenerateNewLevelClientRpcPatch(int randomSeed)
         {
-            Plugin.instance.Log("Generating New Level");
-            UpdateMaterials(randomSeed);
+            Plugin.instance.Log("Updating Poster Textures...");
+            UpdateTextures(randomSeed);
         }
 
-        private static void UpdateMaterials(int seed)
+        private static void UpdateTextures(int seed)
         {
             Random rand = new Random(seed);
             Material[] materials = (GameObject.Find("HangarShip/Plane.001").GetComponent<MeshRenderer>()).materials;

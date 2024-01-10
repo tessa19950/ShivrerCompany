@@ -28,14 +28,13 @@ namespace ShivrerCompany
             TextureUtil.LoadTexturePaths();
 
             harmony.PatchAll(typeof(Plugin));
-            harmony.PatchAll(typeof(StartOfRoundPatch));
             harmony.PatchAll(typeof(RoundManagerPatch));
             harmony.PatchAll(typeof(TerminalPatch));
 
             harmony.PatchAll(typeof(WalkieTalkiePatch));
             harmony.PatchAll(typeof(GrabbableObjectPatch));
 
-            Log($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
+            Log($"Plugin {PluginInfo.PLUGIN_GUID} is loaded! <3");
         }
 
         public void Log(string message)

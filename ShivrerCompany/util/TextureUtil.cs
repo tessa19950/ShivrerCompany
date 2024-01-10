@@ -27,32 +27,49 @@ namespace ShivrerCompany.util
 
         public static void LoadTexturePaths()
         {
-            string[] files = Directory.GetFiles(Path.Combine(Paths.PluginPath, "ShivrerAssets"));
+            List<string> files = new List<string>();
+            AddFilePaths(files, Paths.PluginPath);
+            AddFilePaths(files, Path.Combine(Paths.PluginPath, "SuperSuccubus-ShivrerCompany"));
+            AddFilePaths(files, Path.Combine(Paths.PluginPath, "SuperSuccubus-ShivrerCompany", "ShivrerAssets"));
 
-            WALKIETALKIE_TEX = FindTexturePath(files, "WalkieTalkieTex.png");
-            WALKIETALKIE_SCREEN_TEX = FindTexturePath(files, "WalkieTalkieScreenEmission.png");
-            WALKIETALKIE_ICON = FindTexturePath(files, "WalkieTalkieIcon.png");
-            FLASHLIGHT_TEX = FindTexturePath(files, "FlashlightTexture.png");
-            FLASHLIGHT_ICON = FindTexturePath(files, "FlashlightIcon.png");
-            TINY_FLASHLIGHT_TEX = FindTexturePath(files, "TinyFlashlightTex.png");
-            TINY_FLASHLIGHT_ICON = FindTexturePath(files, "TinyFlashlightIcon.png");
-            GIFTBOX_TEX = FindTexturePath(files, "GiftBoxTex.png");
-            GIFTBOX_ICON = FindTexturePath(files, "GiftBoxIcon.png");
-            AIRHORN_TEX = FindTexturePath(files, "AirhornTex.png");
-            SODACAN_TEX = FindTexturePath(files, "SodaCanTex1.png");
-            STOPSIGN_TEX = FindTexturePath(files, "StopSignTex.png");
-            YIELDSIGN_TEX = FindTexturePath(files, "YieldSignTex.png");
-            POSTERS_TEX = FindTexturePath(files, "posters.png");
+            //for (int i = 0; i < files.Count; i++)
+                //Plugin.instance.Log("File [" + (i + 1) + "/" + files.Count + "] [" + files[i] + "]");
+
+            WALKIETALKIE_TEX = FindTextureInFiles(files, "WalkieTalkieTex.png");
+            WALKIETALKIE_SCREEN_TEX = FindTextureInFiles(files, "WalkieTalkieScreenEmission.png");
+            WALKIETALKIE_ICON = FindTextureInFiles(files, "WalkieTalkieIcon.png");
+            FLASHLIGHT_TEX = FindTextureInFiles(files, "FlashlightTexture.png");
+            FLASHLIGHT_ICON = FindTextureInFiles(files, "FlashlightIcon.png");
+            TINY_FLASHLIGHT_TEX = FindTextureInFiles(files, "TinyFlashlightTex.png");
+            TINY_FLASHLIGHT_ICON = FindTextureInFiles(files, "TinyFlashlightIcon.png");
+            GIFTBOX_TEX = FindTextureInFiles(files, "GiftBoxTex.png");
+            GIFTBOX_ICON = FindTextureInFiles(files, "GiftBoxIcon.png");
+            AIRHORN_TEX = FindTextureInFiles(files, "AirhornTex.png");
+            SODACAN_TEX = FindTextureInFiles(files, "SodaCanTex1.png");
+            STOPSIGN_TEX = FindTextureInFiles(files, "StopSignTex.png");
+            YIELDSIGN_TEX = FindTextureInFiles(files, "YieldSignTex.png");
+            POSTERS_TEX = FindTextureInFiles(files, "posters.png");
+
+            Plugin.instance.Log("All required textures have been loaded! <3");
         }
 
-        public static string FindTexturePath(string[] allfiles, string query)
+        private static void AddFilePaths(List<string> files, string path)
         {
-            Plugin.instance.Log("Searching for " + query);
+            try
+            {
+                Plugin.instance.Log("Searching for files in [" + path + "]");
+                files.AddRange(Directory.GetFiles(path));
+            }
+            catch (DirectoryNotFoundException) { }
+        }
+
+        public static string FindTextureInFiles(List<string> allfiles, string query)
+        {
             foreach (string filePath in allfiles)
             {
                 string[] splitPath = filePath.Split('\\');
                 string fileName = splitPath[splitPath.Length - 1];
-                if (fileName.Equals(query, System.StringComparison.OrdinalIgnoreCase))
+                if (fileName.Equals(query, StringComparison.OrdinalIgnoreCase))
                 {
                     Plugin.instance.Log("Found " + query + " at [" + filePath + "]");
                     return filePath;
